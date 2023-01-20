@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <div id="flexSelect">
+        <select name="selectFrom" id="selectFrom">
+          <option value="text">Text</option>
+          <option value="binary">Binary</option>
+          <option value="hexadecimal">Hexadecimal</option>
+          <option value="decimal">Decimal</option>
+          <option value="octal">Octal</option>
+        </select>
+        <textarea id="input"></textarea>
+        <button id="convertButton">Convert</button>
+      </div>
+      <ul id="outputList">
+        <li class="flexList" id="textList">
+          <div id="preText"></div>
+          <textarea id="textOutput" readonly></textarea>
+          <div class="flexButtons">
+            <button id="copyText" class="copyButton">Copy</button>
+            <a id="textSaveTxt"><button>Save as .txt</button></a>
+            <a id="textSaveBin"><button>Save as Binary</button></a>
+          </div>
+        </li>
+        <li class="flexList" id="binaryList">
+          <div id="preBinary"></div>
+          <textarea id="binaryOutput" readonly></textarea>
+          <div class="flexButtons">
+            <button id="copyBinary" class="copyButton">Copy</button>
+            <a id="binarySaveTxt"><button>Save as .txt</button></a>
+            <a id="binarySaveBin"><button>Save as Binary</button></a>
+          </div>
+        </li>
+        <li class="flexList" id="hexList">
+          <div id="preHex"></div>
+          <textarea id="hexOutput" readonly></textarea>
+          <div class="flexButtons">
+            <button id="copyHex" class="copyButton">Copy</button>
+            <a id="hexSaveTxt"><button>Save as .txt</button></a>
+            <a id="hexSaveBin"><button>Save as Binary</button></a>
+          </div>
+        </li>
+        <li class="flexList" id="decList">
+          <div id="preDec"></div>
+          <textarea" id="decOutput" readonly></textarea>
+          <div class="flexButtons">
+            <button id="copyDec" class="copyButton">Copy</button>
+            <a id="decSaveTxt"><button>Save as .txt</button></a>
+            <a id="decSaveBin"><button>Save as Binary</button></a>
+          </div>
+        </li>
+        <li class="flexList" id="octList">
+          <div id="preOct"></div>
+          <textarea id="octOutput" readonly></textarea>
+          <div class="flexButtons">
+            <button id="copyOct" class="copyButton">Copy</button>
+            <a id="octSaveTxt"><button>Save as .txt</button></a>
+            <a id="octSaveBin"><button>Save as Binary</button></a>
+          </div>
+        </li>
+      </ul>
+      <script type="module" src="app.js"></script>
+    </main>
+  </body>
+</html>
