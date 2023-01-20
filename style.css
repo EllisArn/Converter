@@ -1,3 +1,8 @@
+* {
+    background-color: #202124;
+    color: #fff;
+}
+
 #outputList {
     display: flex;
     flex-direction: column;
