@@ -67,6 +67,9 @@ const preOct = document.querySelector('#preOct')
 const input = document.querySelector('#input')
 const convertButton = document.querySelector('#convertButton')
 
+input.focus()
+input.select()
+
 convertButton.addEventListener('click', converter)
 
 hideUnused()
@@ -125,6 +128,9 @@ function hideUnused() {
   preHex.innerHTML = 'Hexadecimal'
   preDec.innerHTML = 'Decimal'
   preOct.innerHTML = 'Octal'
+
+  input.focus()
+  input.select()
 }
 
 input.addEventListener('keydown', (e) => {
