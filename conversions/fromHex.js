@@ -1,35 +1,47 @@
-export function hexToText(hex) {
-  let text = ''
-  let hexArray = hex.split(' ')
-  for (let i = 0; i < hexArray.length; i++) {
-    text += String.fromCharCode(parseInt(hexArray[i], 16))
-  }
-  return text
-}
+import { decToBinary } from './fromDec.js'
+import { decToOct } from './fromDec.js'
 
 export function hexToBinary(hex) {
-  let binary = ''
-  let hexArray = hex.split(' ')
-  for (let i = 0; i < hexArray.length; i++) {
-    binary += parseInt(hexArray[i], 16).toString(2) + ' '
-  }
+  if (hex === '') return ''
+  let binary = decToBinary(hexToDec(hex))
   return binary
 }
 
 export function hexToDec(hex) {
-  let dec = ''
-  let hexArray = hex.split(' ')
-  for (let i = 0; i < hexArray.length; i++) {
-    dec += parseInt(hexArray[i], 16) + ' '
-  }
+  if (hex === '') return ''
+  let dec = 0
+  let hexArray = hex.split('')
+  let counter = hexArray.length
+  hexArray.forEach((hex) => {
+    switch (hex) {
+      case 'A':
+        dec += 10 * Math.pow(16, counter - 1)
+        break
+      case 'B':
+        dec += 11 * Math.pow(16, counter - 1)
+        break
+      case 'C':
+        dec += 12 * Math.pow(16, counter - 1)
+        break
+      case 'D':
+        dec += 13 * Math.pow(16, counter - 1)
+        break
+      case 'E':
+        dec += 14 * Math.pow(16, counter - 1)
+        break
+      case 'F':
+        dec += 15 * Math.pow(16, counter - 1)
+        break
+      default:
+        dec += hex * 1.6
+    }
+    counter--
+  })
   return dec
 }
 
 export function hexToOct(hex) {
-  let oct = ''
-  let hexArray = hex.split(' ')
-  for (let i = 0; i < hexArray.length; i++) {
-    oct += parseInt(hexArray[i], 16).toString(8) + ' '
-  }
+  if (hex === '') return ''
+  let oct = decToOct(hexToDec(hex))
   return oct
 }

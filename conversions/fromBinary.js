@@ -1,35 +1,25 @@
-export function binaryToText(binary) {
-  let text = ''
-  let binaryArray = binary.split(' ')
-  for (let i = 0; i < binaryArray.length; i++) {
-    text += String.fromCharCode(parseInt(binaryArray[i], 2))
-  }
-  return text
-}
+import { decToHex, decToOct } from "./fromDec.js";
 
 export function binaryToHex(binary) {
-  let hex = ''
-  let binaryArray = binary.split(' ')
-  for (let i = 0; i < binaryArray.length; i++) {
-    hex += parseInt(binaryArray[i], 2).toString(16) + ' '
-  }
-  return hex
+  if (binary === '') return ''
+  let hex = decToHex(binaryToDec(binary).toString())
+  return hex.toUpperCase()
 }
 
 export function binaryToDec(binary) {
-  let dec = ''
-  let binaryArray = binary.split(' ')
-  for (let i = 0; i < binaryArray.length; i++) {
-    dec += parseInt(binaryArray[i], 2) + ' '
-  }
+  if (binary === '') return ''
+  let dec = 0
+  let binaryArray = binary.split('')
+  let counter = binaryArray.length
+  binaryArray.forEach(binary => {
+    dec += binary * Math.pow(2, counter - 1)
+    counter--
+  });
   return dec
 }
 
 export function binaryToOct(binary) {
-  let oct = ''
-  let binaryArray = binary.split(' ')
-  for (let i = 0; i < binaryArray.length; i++) {
-    oct += parseInt(binaryArray[i], 2).toString(8) + ' '
-  }
+  if (binary === '') return ''
+  let oct = decToOct(binaryToDec(binary))
   return oct
 }

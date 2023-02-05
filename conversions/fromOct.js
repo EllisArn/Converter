@@ -1,26 +1,26 @@
+import { decToHex } from "./fromDec.js"
+import { decToBinary } from "./fromDec.js"
+
 export function octToBinary(octal) {
-  let binary = ''
-  let octalArray = octal.split(' ')
-  for (let i = 0; i < octalArray.length; i++) {
-    binary += parseInt(octalArray[i], 8).toString(2) + ' '
-  }
+  if (octal === '') return ''
+  let binary = decToBinary(octToDec(octal))
   return binary
 }
 
 export function octToHex(octal) {
-  let hex = ''
-  let octalArray = octal.split(' ')
-  for (let i = 0; i < octalArray.length; i++) {
-    hex += parseInt(octalArray[i], 8).toString(16) + ' '
-  }
-  return hex
+  if (octal === '') return ''
+  let hex = decToHex(octToDec(octal).toString())
+  return hex.toUpperCase()
 }
 
 export function octToDec(octal) {
-  let dec = ''
-  let octalArray = octal.split(' ')
-  for (let i = 0; i < octalArray.length; i++) {
-    dec += parseInt(octalArray[i], 8) + ' '
-  }
+  if (octal === '') return ''
+  let dec = 0
+  let octalArray = octal.split('')
+  let counter = octalArray.length
+  octalArray.forEach(octal => {
+    dec += octal * Math.pow(8, counter - 1)
+    counter--
+  });
   return dec
 }

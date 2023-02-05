@@ -1,12 +1,9 @@
-import { textToBinary, textToHex } from './conversions/fromText.js'
 import {
-  binaryToText,
   binaryToHex,
   binaryToDec,
   binaryToOct,
 } from './conversions/fromBinary.js'
 import {
-  hexToText,
   hexToBinary,
   hexToDec,
   hexToOct,
@@ -25,10 +22,7 @@ document.querySelectorAll('textarea').forEach((input) => {
 document.querySelectorAll('.copyButton').forEach((button) => {
   button.addEventListener('click', (e) => {
     const id = e.target.id
-    if (id === 'copyText') {
-      const output = document.querySelector('#textOutput')
-      navigator.clipboard.writeText(output.value)
-    } else if (id === 'copyBinary') {
+if (id === 'copyBinary') {
       const output = document.querySelector('#binaryOutput')
       navigator.clipboard.writeText(output.value)
     } else if (id === 'copyHex') {
@@ -46,19 +40,16 @@ document.querySelectorAll('.copyButton').forEach((button) => {
 
 const selectFrom = document.querySelector('#selectFrom')
 
-const textList = document.querySelector('#textList')
 const binaryList = document.querySelector('#binaryList')
 const hexList = document.querySelector('#hexList')
 const decList = document.querySelector('#decList')
 const octList = document.querySelector('#octList')
 
-export const textOutput = document.querySelector('#textOutput')
 export const binaryOutput = document.querySelector('#binaryOutput')
 export const hexOutput = document.querySelector('#hexOutput')
 export const decOutput = document.querySelector('#decOutput')
 export const octOutput = document.querySelector('#octOutput')
 
-const preText = document.querySelector('#preText')
 const preBinary = document.querySelector('#preBinary')
 const preHex = document.querySelector('#preHex')
 const preDec = document.querySelector('#preDec')
@@ -77,8 +68,6 @@ download()
 
 selectFrom.addEventListener('change', () => {
   input.value = ''
-  textOutput.value = ''
-  textOutput.style = 'height: 1rem;'
   binaryOutput.value = ''
   binaryOutput.style = 'height: 1rem;'
   hexOutput.value = ''
@@ -91,39 +80,28 @@ selectFrom.addEventListener('change', () => {
 })
 
 function hideUnused() {
-  if (selectFrom.value === 'text') {
-    textList.style = 'display: none;'
-    binaryList.style = 'display: flex;'
-    hexList.style = 'display: flex;'
-    decList.style = 'display: none;'
-    octList.style = 'display: none;'
-  } else if (selectFrom.value === 'binary') {
-    textList.style = 'display: flex;'
+ if (selectFrom.value === 'binary') {
     binaryList.style = 'display: none;'
     hexList.style = 'display: flex;'
     decList.style = 'display: flex;'
     octList.style = 'display: flex;'
   } else if (selectFrom.value === 'hexadecimal') {
-    textList.style = 'display: flex;'
     binaryList.style = 'display: flex;'
     hexList.style = 'display: none;'
     decList.style = 'display: flex;'
     octList.style = 'display: flex;'
   } else if (selectFrom.value === 'decimal') {
-    textList.style = 'display: none;'
     binaryList.style = 'display: flex;'
     hexList.style = 'display: flex;'
     decList.style = 'display: none;'
     octList.style = 'display: flex;'
   } else if (selectFrom.value === 'octal') {
-    textList.style = 'display: none;'
     binaryList.style = 'display: flex;'
     hexList.style = 'display: flex;'
     decList.style = 'display: flex;'
     octList.style = 'display: none;'
   }
 
-  preText.innerHTML = 'Text'
   preBinary.innerHTML = 'Binary'
   preHex.innerHTML = 'Hexadecimal'
   preDec.innerHTML = 'Decimal'
@@ -133,42 +111,43 @@ function hideUnused() {
   input.select()
 }
 
+input.addEventListener('input', () => {
+  if (selectFrom.value === 'decimal' || selectFrom.value === 'octal') {
+    input.value = input.value.replace(/[^0-9]+/g, '')
+  }
+  else if (selectFrom.value === 'hexadecimal') {
+    input.value = input.value.replace(/[^0-9a-fA-F]+/g, '')
+  }
+  else if (selectFrom.value === 'binary') {
+    input.value = input.value.replace(/[^0-1]+/g, '')
+  }
+})
+
 input.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
+    e.preventDefault();
     converter()
   }
 })
 
 function converter() {
-  textOutput.value = ''
-  binaryOutput.value = ''
-  hexOutput.value = ''
-  decOutput.value = ''
-  octOutput.value = ''
-  if (selectFrom.value === 'text') {
-    binaryOutput.value += textToBinary(input.value)
-    hexOutput.value += textToHex(input.value)
-  } else if (selectFrom.value === 'binary') {
-    textOutput.value += binaryToText(input.value)
-    hexOutput.value += binaryToHex(input.value)
-    decOutput.value += binaryToDec(input.value)
-    octOutput.value += binaryToOct(input.value)
+if (selectFrom.value === 'binary') {
+    hexOutput.value = binaryToHex(input.value)
+    decOutput.value = binaryToDec(input.value)
+    octOutput.value = binaryToOct(input.value)
   } else if (selectFrom.value === 'hexadecimal') {
-    textOutput.value += hexToText(input.value)
-    binaryOutput.value += hexToBinary(input.value)
-    decOutput.value += hexToDec(input.value)
-    octOutput.value += hexToOct(input.value)
+    binaryOutput.value = hexToBinary(input.value)
+    decOutput.value = hexToDec(input.value)
+    octOutput.value = hexToOct(input.value)
   } else if (selectFrom.value === 'decimal') {
-    binaryOutput.value += decToBinary(input.value)
-    hexOutput.value += decToHex(input.value)
-    octOutput.value += decToOct(input.value)
+    binaryOutput.value = decToBinary(input.value)
+    hexOutput.value = decToHex(input.value)
+    octOutput.value = decToOct(input.value)
   } else if (selectFrom.value === 'octal') {
-    binaryOutput.value += octToBinary(input.value)
-    hexOutput.value += octToHex(input.value)
-    decOutput.value += octToDec(input.value)
+    binaryOutput.value = octToBinary(input.value)
+    hexOutput.value = octToHex(input.value)
+    decOutput.value = octToDec(input.value)
   }
-  textOutput.style.height = '5px'
-  textOutput.style.height = textOutput.scrollHeight - 3 + 'px'
   binaryOutput.style.height = '5px'
   binaryOutput.style.height = binaryOutput.scrollHeight - 3 + 'px'
   hexOutput.style.height = '5px'
