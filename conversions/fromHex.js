@@ -13,7 +13,7 @@ export function hexToDec(hex) {
   let hexArray = hex.split('')
   let counter = hexArray.length
   hexArray.forEach((hex) => {
-    switch (hex) {
+    switch (hex.toUpperCase()) {
       case 'A':
         dec += 10 * Math.pow(16, counter - 1)
         break
@@ -33,7 +33,7 @@ export function hexToDec(hex) {
         dec += 15 * Math.pow(16, counter - 1)
         break
       default:
-        dec += hex * 1.6
+        dec += hex * Math.pow(16, counter - 1)
     }
     counter--
   })
